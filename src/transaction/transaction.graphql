@@ -1,0 +1,8 @@
+type Transactions {
+  pk:String!
+}
+
+type Query {
+  getAllTransactionHistory: [Transactions!]!
+  getAllWrapperService: [Transactions!]!
+}

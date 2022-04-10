@@ -1,0 +1,23 @@
+type Wrapper {
+  description: String!
+  name: String!
+  clientkeys: [Wrapper!]!
+  WrapperServiceProviders: [Wrapper!]!
+}
+
+type Query {
+  findAllWrapper: [Wrapper!]!
+}
+
+type VerificationService{
+  Id:String!
+  name:String!
+}
+
+type Query {
+  findAllWrapper: [Wrapper!]!
+  getAllVerificationService: [VerificationService]
+  updateClietKeyLiveTest: [Wrapper!]!
+  createWallet:[Wrapper!]!
+  walletDetails:[Wrapper!]!
+}

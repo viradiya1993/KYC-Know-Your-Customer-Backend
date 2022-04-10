@@ -1,0 +1,11 @@
+type BulkVerification {
+  pk:String!
+}
+
+type Query {
+  findAllBulkVerifications: [BulkVerification!]!
+  findAllBulkWiseTransactions: [BulkVerification!]!
+  findAllBulktransactionStatistics: [BulkVerification!]!
+  getAllBulkWrapperService: [BulkVerification!]!
+  verifyBulkUpload: [BulkVerification!]!
+}

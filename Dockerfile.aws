@@ -1,0 +1,19 @@
+FROM registry.access.redhat.com/ubi8/nodejs-12
+
+WORKDIR /opt/app-root
+
+USER root
+
+ADD package*.json ./
+COPY tsconfig*.json ./
+COPY .staging.env ./
+
+#RUN npm install -g npm-cli-login
+#RUN npm set registry http://npm.seamfix.com
+RUN npm install
+
+COPY . .
+
+EXPOSE 3195
+
+CMD ["npm", "run", "start:staging"]

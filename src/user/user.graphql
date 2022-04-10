@@ -1,0 +1,11 @@
+type User {
+  id: ID
+}
+
+type Query {
+  signUp: [User!]!
+  userDetails: [User!]!
+  updateUser: [User]!
+  updateClient: [User]!
+  updateTourDismiss: [User]!
+}

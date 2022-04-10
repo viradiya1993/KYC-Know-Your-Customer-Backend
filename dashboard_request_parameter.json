@@ -1,0 +1,178 @@
+{
+  "dashboardRequest": {
+    "smallCards": [
+      {
+        "aggregateFn": "count",
+        "inclusiveTable": "invocations",
+        "inclusiveColumn": "pk",
+        "active": true,
+        "label": "Total number of service Calls",
+        "logo": "/notebook--reference-blue.svg",
+        "menuItems": [
+          {
+            "label": "View details",
+            "redirectionPath": "/transactions/all"
+          }
+        ],
+        "query": "SELECT COUNT(invocations.pk) AS count FROM invocations INNER JOIN wrapper ON wrapper.pk = invocations.wrapper_fk INNER JOIN public.user ON public.user.pk = invocations.user_fk INNER JOIN client_user ON client_user.pk = public.user.pk WHERE invocations.deleted = false AND client_user.client_fk ="
+      },
+      {
+        "aggregateFn": "count",
+        "inclusiveTable": "invocations",
+        "inclusiveColumn": "transaction_status",
+        "whereCondition": "successful",
+        "active": true,
+        "label": "Number of successful service Calls",
+        "logo": "/notebook--reference.svg",
+        "menuItems": [
+          {
+            "label": "View details",
+            "redirectionPath": "/transactions/all"
+          }
+        ],
+        "query": "SELECT COUNT(invocations.pk) AS count FROM invocations INNER JOIN wrapper ON wrapper.pk = invocations.wrapper_fk INNER JOIN public.user ON public.user.pk = invocations.user_fk INNER JOIN client_user ON client_user.pk = public.user.pk WHERE invocations.deleted = false AND invocations.transaction_status ILIKE '%successful%' AND client_user.client_fk ="
+      },
+      {
+        "aggregateFn": "count",
+        "inclusiveTable": "invocations",
+        "inclusiveColumn": "transaction_status",
+        "whereCondition": "failed",
+        "active": true,
+        "label": "Number of failed service Calls",
+        "logo": "/notebook--reference-red.svg",
+        "menuItems": [
+          {
+            "label": "View details",
+            "redirectionPath": "/transactions/all"
+          }
+        ],
+        "query": "SELECT COUNT(invocations.pk) AS count FROM invocations INNER JOIN wrapper ON wrapper.pk = invocations.wrapper_fk INNER JOIN public.user ON public.user.pk = invocations.user_fk INNER JOIN client_user ON client_user.pk = public.user.pk WHERE invocations.deleted = false AND invocations.transaction_status ILIKE '%failed%' AND client_user.client_fk ="
+      },
+      {
+        "aggregateFn": "count",
+        "inclusiveTable": "user",
+        "whereCondition": "true",
+        "active": true,
+        "label": "Number of users",
+        "logo": "/ic-users.svg",
+        "menuItems": [
+          {
+            "label": "View details",
+            "redirectionPath": "/user"
+          }
+        ],
+        "query": "SELECT count(pk) FROM public.user WHERE deleted = false"
+      }
+    ],
+    "bigCards": [
+      {
+        "aggregateFn": "sum",
+        "inclusiveTable": "wallet",
+        "inclusiveColumn": "balance",
+        "active": true,
+        "label": "Total wallet balance",
+        "logo": "/notes-white.svg",
+        "menuItems": []
+      },
+      {
+        "aggregateFn": "sum",
+        "inclusiveTable": "wallet_statement",
+        "inclusiveColumn": "amount",
+        "active": true,
+        "label": "Total Wallet Top-up",
+        "logo": "/notes-green.svg",
+        "menuItems": [
+          {
+            "label": "View details",
+            "redirectionPath": "/wallet"
+          }
+        ]
+      },
+      {
+        "aggregateFn": "sum",
+        "inclusiveTable": "wallet_statement",
+        "inclusiveColumn": "amount",
+        "active": true,
+        "label": "Total Wallet Debit",
+        "logo": "/notes-green.svg",
+        "menuItems": [
+          {
+            "label": "View details",
+            "redirectionPath": "/wallet"
+          }
+        ]
+      }
+    ],
+    "barChart": [
+      {
+        "aggregateFn": "count",
+        "inclusiveTable": "invocations",
+        "inclusiveColumn": "wrapper_fk",
+        "active": true,
+        "query": "SELECT DISTINCT public.wrapper.name, COALESCE(count(*) FILTER (WHERE extract('month' from invocations.invocation_time) = 1 AND extract('year' from invocations.invocation_time) = date_part('year', now())) OVER(PARTITION BY public.wrapper.name),0) AS Jan, COALESCE(count(*) FILTER (WHERE extract('month' from invocations.invocation_time) = 2 AND extract('year' from invocations.invocation_time) = date_part('year', now())) OVER(PARTITION BY public.wrapper.name),0) AS Feb, COALESCE(count(*) FILTER (WHERE extract('month' from invocations.invocation_time) = 3 AND extract('year' from invocations.invocation_time) = date_part('year', now())) OVER(PARTITION BY public.wrapper.name),0) AS Mar, COALESCE(count(*) FILTER (WHERE extract('month' from invocations.invocation_time) = 4 AND extract('year' from invocations.invocation_time) = date_part('year', now())) OVER(PARTITION BY public.wrapper.name),0) AS Apr, COALESCE(count(*) FILTER (WHERE extract('month' from invocations.invocation_time) = 5 AND extract('year' from invocations.invocation_time) = date_part('year', now())) OVER(PARTITION BY public.wrapper.name),0) AS May, COALESCE(count(*) FILTER (WHERE extract('month' from invocations.invocation_time) = 6 AND extract('year' from invocations.invocation_time) = date_part('year', now())) OVER(PARTITION BY public.wrapper.name),0) AS Jun, COALESCE(count(*) FILTER (WHERE extract('month' from invocations.invocation_time) = 7 AND extract('year' from invocations.invocation_time) = date_part('year', now())) OVER(PARTITION BY public.wrapper.name),0) AS Jul, COALESCE(count(*) FILTER (WHERE extract('month' from invocations.invocation_time) = 8 AND extract('year' from invocations.invocation_time) = date_part('year', now())) OVER(PARTITION BY public.wrapper.name),0) AS Aug, COALESCE(count(*) FILTER (WHERE extract('month' from invocations.invocation_time) = 9 AND extract('year' from invocations.invocation_time) = date_part('year', now())) OVER(PARTITION BY public.wrapper.name),0) AS Sep, COALESCE(count(*) FILTER (WHERE extract('month' from invocations.invocation_time) = 10 AND extract('year' from invocations.invocation_time) = date_part('year', now())) OVER(PARTITION BY public.wrapper.name),0) AS Oct, COALESCE(count(*) FILTER (WHERE extract('month' from invocations.invocation_time) = 11 AND extract('year' from invocations.invocation_time) = date_part('year', now())) OVER(PARTITION BY public.wrapper.name),0) AS Nov, COALESCE(count(*) FILTER (WHERE extract('month' from invocations.invocation_time) = 12 AND extract('year' from invocations.invocation_time) = date_part('year', now())) OVER(PARTITION BY public.wrapper.name),0) AS Dec FROM public.user INNER JOIN client_user ON client_user.pk=public.user.pk AND (public.user.pk = client_user.pk) INNER JOIN public.client ON client.pk=client_user.client_fk AND (client.pk = client_user.client_fk) INNER JOIN invocations ON invocations.user_fk=public.user.pk AND (public.user.pk = invocations.user_fk) INNER JOIN public.wrapper ON wrapper.pk=invocations.wrapper_fk AND (wrapper.pk = invocations.wrapper_fk) WHERE wrapper.published = true AND client_user.client_fk ="
+      }
+    ],
+    "pieChart": [
+      {
+        "label": "Service request log",
+        "inclusiveTable": "invocations",
+        "inclusiveColumn": "transaction_status",
+        "aggregateFn": "sum",
+        "whereConditions": [
+          "SUCCESSFUL",
+          "FAILED"
+        ],
+        "active": true,
+        "query": "SELECT sum(case when transaction_status = 'SUCCESSFUL' then 1 else 0 end) SucessCount, sum(case when transaction_status = 'FAILED' then 1 else 0 end) FaildCount FROM public.user INNER JOIN client_user ON client_user.pk=public.user.pk AND (public.user.pk = client_user.pk) INNER JOIN client ON client.pk=client_user.client_fk AND (client.pk = client_user.client_fk) INNER JOIN invocations ON invocations.user_fk=public.user.pk AND (public.user.pk = invocations.user_fk) WHERE client_user.client_fk = "
+      }
+    ],
+    "progressCharts": [
+      {
+        "aggregateFn": "sum",
+        "inclusiveTable": "bulk-verifications",
+        "inclusiveColumn": "status",
+        "whereCondition": "Completed",
+        "isShowProgress": true,
+        "chartLabel": "percentage of completed verifications",
+        "link": {
+          "label": "View Details",
+          "redirectionPath": "/bulk-verification/bulk-record"
+        },
+        "logo": "/Completed-Bulk.svg",
+        "label": "Number of completed bulk verifications",
+        "active": true,
+        "query": "SELECT sum(case when status ILIKE '%Completed%' then 1 else 0 end) as CompletedCount, count(*) as TotalCount FROM public.user INNER JOIN client_user ON client_user.pk=public.user.pk AND (public.user.pk = client_user.pk) INNER JOIN public.client ON client.pk=client_user.client_fk AND (client.pk = client_user.client_fk) INNER JOIN bulk_verifications ON bulk_verifications.user_fk=public.user.pk AND (public.user.pk = bulk_verifications.user_fk) WHERE client_user.client_fk = "
+      },
+      {
+        "aggregateFn": "sum",
+        "inclusiveTable": "bulk-verifications",
+        "inclusiveColumn": "status",
+        "whereCondition": "Running",
+        "isShowProgress": true,
+        "chartLabel": "percentage of ongoing verifications",
+        "link": {
+          "label": "View Details",
+          "redirectionPath": "/bulk-verification/bulk-record"
+        },
+        "logo": "/Ongoing-bulk.svg",
+        "label": "Number of ongoing bulk verifications",
+        "active": true,
+        "query": "SELECT sum(case when status ILIKE '%Running%' then 1 else 0 end) as CompletedCount, count(*) as TotalCount FROM public.user INNER JOIN client_user ON client_user.pk=public.user.pk AND (public.user.pk = client_user.pk) INNER JOIN client ON client.pk=client_user.client_fk AND (client.pk = client_user.client_fk) INNER JOIN bulk_verifications ON bulk_verifications.user_fk=public.user.pk AND (public.user.pk = bulk_verifications.user_fk) WHERE client_user.client_fk = "
+      },
+      {
+        "aggregateFn": "count",
+        "inclusiveTable": "bulk-verifications",
+        "inclusiveColumn": "pk",
+        "isShowProgress": false,
+        "link": {
+          "label": "View Details",
+          "redirectionPath": "/bulk-verification/bulk-record"
+        },
+        "logo": "/Total-Bulk.svg",
+        "label": "Number of total bulk verifications",
+        "active": true,
+        "query": "SELECT count(*) as TotalCount FROM public.user INNER JOIN client_user ON client_user.pk=public.user.pk AND (public.user.pk = client_user.pk) INNER JOIN client ON client.pk=client_user.client_fk AND (client.pk = client_user.client_fk) INNER JOIN bulk_verifications ON bulk_verifications.user_fk=public.user.pk AND (public.user.pk = bulk_verifications.user_fk) WHERE client_user.client_fk ="
+      }
+    ]
+  }
+}

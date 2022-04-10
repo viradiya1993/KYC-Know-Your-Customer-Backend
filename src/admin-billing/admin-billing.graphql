@@ -1,0 +1,9 @@
+type AdminBillingDetails {
+  pk:String!
+}
+
+type Query {
+  getCustomerDetails: [AdminBillingDetails!]!
+  getBandAndCustomerDetails: [AdminBillingDetails!]!
+  saveBandDetails: [AdminBillingDetails!]!
+}

@@ -1,0 +1,15 @@
+type Dashboard {
+  baseuserid: String!
+  dashboardRequest: String!
+}
+
+type BarCard {
+  baseuserid: String!
+  dashboardRequest: String!
+}
+
+type Query {
+  createDashboardCards: [Dashboard!]!
+  filterBarCard: [BarCard!]!
+  checkUserAction: [Dashboard!]!
+}

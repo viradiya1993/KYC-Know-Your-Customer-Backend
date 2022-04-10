@@ -1,0 +1,16 @@
+type BillingCardsDetails {
+  userid:String!
+}
+
+type CUstomerBillingDetails {
+  userid: String!
+  serviceName: String!
+  wrapperId: String!
+  verified_service_provider_id: String!
+}
+
+type Query {
+  getBillingCards: [BillingCardsDetails!]!
+  getCustomerBillingDetails: [CUstomerBillingDetails]
+  getWrapperService: [CUstomerBillingDetails]
+}

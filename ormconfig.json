@@ -1,0 +1,15 @@
+{
+    "type": "postgres",
+    "host": "52.211.127.247",
+    "port": "5432",
+    "username": "seamfix",
+    "password": "k0l0",
+    "database": "verified-ng-merged",
+    "synchronize": false,
+    "entities": ["./dist/**/*.entity{.ts,.js}"],
+    "migrationsTableName": "migration_file",
+    "migrations": ["./dist/migration/*{.ts,.js}"],
+    "cli": {
+        "migrationsDir": "migration"
+    }
+}
